@@ -6,9 +6,9 @@
 ]##
 
 import std / [unicode, strutils, tables, math, options, macros, times, sets]
-import samson / private / [jtrees, parser, lexer, xunicode, xtypetraits],
-  samson / [pragmas, errors],
-  samson / experimental / [eithers, jsonvalues]
+import json5 / private / [jtrees, parser, lexer, xunicode, xtypetraits],
+  json5 / [pragmas, errors],
+  json5 / experimental / [eithers, jsonvalues]
 
 export errors
 
@@ -311,7 +311,7 @@ proc fromJsonImpl(tree: JTree, idx: JNodeIdx, T: typedesc): T =
   elif T is Table|OrderedTable:
     when T.generic(0) isnot string:
       {.error: "Tables must be indexed by strings " &
-        "for compatibility with samson".}
+        "for compatibility with json5".}
     if tree.nodes[idx].kind != nkObject:
       error()
     else:

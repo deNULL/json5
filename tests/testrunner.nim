@@ -1,6 +1,6 @@
 import std / [os, strutils, terminal, json, options, tables]
-import .. / src / samson,
-       .. / src / samson / private / [parser, jtrees]
+import .. / src / json5,
+       .. / src / json5 / private / [parser, jtrees]
 
 var allOk = true
 

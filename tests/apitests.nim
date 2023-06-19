@@ -1,9 +1,9 @@
 import std / [unittest, options, tables, times, math, sets]
 from std / strutils import strip
 import
-  .. / src / samson,
-  .. / src / samson / pragmas,
-  .. / src / samson / experimental / [eithers, jsonvalues]
+  .. / src / json5,
+  .. / src / json5 / pragmas,
+  .. / src / json5 / experimental / [eithers, jsonvalues]
 
 template reject(body: untyped) =
   check not compiles(body)
