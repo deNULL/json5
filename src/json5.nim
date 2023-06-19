@@ -5,7 +5,7 @@
   * `errors module <errors.html>`_ (exported by this module)
 ]##
 
-import std / [unicode, strutils, tables, math, options, macros, times, sets]
+import std / [unicode, strutils, tables, math, options, macros, times, sets, json]
 import json5 / private / [jtrees, parser, lexer, xunicode, xtypetraits],
   json5 / [pragmas, errors],
   json5 / experimental / [eithers, jsonvalues]
@@ -257,6 +257,8 @@ proc addJson[T](result: var string, value: T, opts: ToJsonOpts, currIndent: int)
       result.add ", "
     result.setLen(result.len - 2)
     result.add "]"
+  elif T is JsonNode:
+    result.add $value # this probably should be replaced with our serialization in the future
   else:
     {.error: "Unsupported type: " & $T.}
 
@@ -463,6 +465,8 @@ proc fromJsonImpl(tree: JTree, idx: JNodeIdx, T: typedesc): T =
         let jnodeIdx = tree.nodes[idx].items[tupleFieldIdx]
         fieldSym = fromJsonImpl(tree, jnodeIdx, type(fieldSym))
         tupleFieldIdx.inc
+  elif T is JsonNode:
+    result = tree.toJson(idx)
   else:
     {.error: "Unsupported type: " & $T.}
 
